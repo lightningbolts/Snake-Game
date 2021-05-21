@@ -1,5 +1,25 @@
 body {
     text-align: center;
-    background: white;
+    background: black;
     font-family: 'Courier New', Courier, monospace;
+    color: white
+}
+
+.button1 {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 0.1em solid white;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: black;
+    text-align: center
+    
+}
+
+.button1:hover {
+    color: white;
+    background-color: black;
 }
