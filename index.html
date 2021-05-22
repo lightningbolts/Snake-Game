@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="Snake_Game.css">
+
+<body>
+    <h1>Snake Game!</h1>
+    <p id="score">Score:</p>
+    <label for="color">Choose a board color:</label>
+
+    <select id="color" onchange="onColorChange(value)">
+        <option value="">--Please choose an option--</option>
+        <option value="orange">Orange</option>
+        <option value="pink">Pink</option>
+        <option value="black">Black</option>
+        <option value="white">White</option>
+        <option value="green">Green</option>
+        <option value="cyan">Cyan</option>
+    </select>
+
+    <button onclick="startButton()" id="start" class="button1">Start</button>
+    <canvas id="canvas"></canvas>
+    <script src="Snake_Game.js"></script>
+</body>

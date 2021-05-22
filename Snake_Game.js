@@ -1,5 +1,6 @@
-const SQUARE_DIMENSION = 24;
+const SQUARE_DIMENSION = 20;
 const SNAKE_COLOR = "blue";
+let boardColor = "grey";
 let score = 0;
 
 let canvasElement = document.getElementById("canvas");
@@ -13,39 +14,46 @@ let cellHeight = canvasElement.height / SQUARE_DIMENSION;
 
 ctx.fillStyle = "pink";
 
+function onColorChange(value) {
+    boardColor = value
+    initializeGame()
+}
+
 function drawSnakeSegment(x, y) {
     ctx.fillRect(x, y, cellWidth, cellHeight);
     ctx.strokeRect(x, y, cellWidth, cellHeight);
 }
-
-for (let rows = 0; rows < SQUARE_DIMENSION; rows++) {
-    for (let columns = 0; columns < SQUARE_DIMENSION; columns++) {
-        drawSnakeSegment(rows * cellWidth, columns * cellHeight)
+function drawBoard() {
+    ctx.fillStyle = boardColor
+    for (let rows = 0; rows < SQUARE_DIMENSION; rows++) {
+        for (let columns = 0; columns < SQUARE_DIMENSION; columns++) {
+            drawSnakeSegment(rows * cellWidth, columns * cellHeight)
+        }
     }
 }
-
-let snake = {
-    x: 8,
-    y: 8,
-    dir: "up",
-    length: 2,
-    segments: [{ x: SQUARE_DIMENSION / 2, y: SQUARE_DIMENSION / 2 }]
-}
+let snake = undefined
 
 let food = {
     x: undefined,
     y: undefined
 }
-updateFoodPosition()
 
+function resetSnake() {
+    snake = {
+        x: 8,
+        y: 8,
+        dir: "up",
+        length: 2,
+        segments: [{ x: SQUARE_DIMENSION / 2, y: SQUARE_DIMENSION / 2 }]
+    }
+    for (let snakeSegment = 0; snakeSegment < snake.length; snakeSegment++) {
+        snake.segments.push({ x: SQUARE_DIMENSION / 2, y: SQUARE_DIMENSION / 2 + 1 + snakeSegment });
+    }
+}
 
 function drawFood() {
     ctx.fillStyle = "yellow"
     drawSnakeSegment(food.x * cellWidth, food.y * cellHeight)
-}
-
-for (let snakeSegment = 0; snakeSegment < snake.length; snakeSegment++) {
-    snake.segments.push({ x: SQUARE_DIMENSION / 2, y: SQUARE_DIMENSION / 2 + 1 + snakeSegment });
 }
 
 function moveSnakeUp() {
@@ -110,12 +118,11 @@ function drawSnake(reset) {
             ctx.fillStyle = SNAKE_COLOR
         }
         if (reset) {
-            ctx.fillStyle = "grey"
+            ctx.fillStyle = boardColor
         }
         drawSnakeSegment(snake.segments[segmentIndex].x * cellWidth, snake.segments[segmentIndex].y * cellHeight)
     }
 }
-document.addEventListener('keydown', handleKeyDown);
 
 function updateFoodPosition() {
     food.x = Math.floor(Math.random() * (SQUARE_DIMENSION - 2) + 1);
@@ -134,37 +141,44 @@ function handleKeyDown(event) {
     }
     console.log(event)
 }
+function initializeGame() {
+    drawBoard();
+    resetSnake()
+    drawSnake(false);
+    updateFoodPosition()
+    drawFood()
+    document.addEventListener('keydown', handleKeyDown);
+}
 
-drawSnake(false);
-drawFood();
+initializeGame()
 
 function startButton() {
-    drawSnake(false);
-    drawFood();
-    setInterval(() => {
+    initializeGame()
+    let repeater = setInterval(() => {
         let head = snake.segments[0]
         if (head.x === 0 || head.x === SQUARE_DIMENSION - 1 || head.y === 0 || head.y === SQUARE_DIMENSION - 1) {
             let newText = document.getElementById("score")
             newText.innerHTML = "Game Over -- Score: " + score
+            clearInterval(repeater)
             return
         }
         if (snake.dir === "up") {
-            ctx.fillStyle = "grey"
+            ctx.fillStyle = boardColor
             drawSnake(true)
             moveSnakeUp()
             drawSnake(false)
         } else if (snake.dir === "right") {
-            ctx.fillStyle = "grey"
+            ctx.fillStyle = boardColor
             drawSnake(true)
             moveSnakeRight()
             drawSnake(false)
         } else if (snake.dir === "left") {
-            ctx.fillStyle = "grey"
+            ctx.fillStyle = boardColor
             drawSnake(true)
             moveSnakeLeft()
             drawSnake(false)
         } else if (snake.dir === "down") {
-            ctx.fillStyle = "grey"
+            ctx.fillStyle = boardColor
             drawSnake(true)
             moveSnakeDown()
             drawSnake(false)
