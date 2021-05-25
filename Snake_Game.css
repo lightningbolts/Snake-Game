@@ -2,21 +2,43 @@ body {
     text-align: center;
     background: black;
     font-family: 'Courier New', Courier, monospace;
-    color: white
+    color: white;
+    margin: auto;
 }
 
 .button1 {
     padding: 5px;
     margin-bottom: 10px;
-    border: 0.1em solid white;
+    border: 0.1em solid rgb(155, 215, 255);
     border-radius: 0.12em;
     box-sizing: border-box;
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
+    background:rgb(155, 215, 255);
     font-weight: 300;
-    color: black;
-    text-align: center
+    margin-top: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    transition: all 0.2s;
     
+}
+
+/*#dropdown {
+    display: flex;
+    width: 30%;
+}
+
+#buttondiv {
+    display: flex;
+    width: 30%;
+}*/
+
+canvas {
+    border: royalblue;
 }
 
 .button1:hover {

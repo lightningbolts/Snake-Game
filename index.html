@@ -1,12 +1,13 @@
 <link rel="stylesheet" href="Snake_Game.css">
 
 <body>
+    <div>
     <h1>Snake Game!</h1>
     <p id="score">Score:</p>
+    <div id="dropdown">
     <label for="color">Choose a board color:</label>
 
     <select id="color" onchange="onColorChange(value)">
-        <option value="">--Please choose an option--</option>
         <option value="orange">Orange</option>
         <option value="pink">Pink</option>
         <option value="black">Black</option>
@@ -14,8 +15,43 @@
         <option value="green">Green</option>
         <option value="cyan">Cyan</option>
     </select>
+    <p><label for="color">Choose a head color:</label>
 
-    <button onclick="startButton()" id="start" class="button1">Start</button>
+    <select id="color" onchange="onHeadColorChange(value)">
+        <option value="orange">Orange</option>
+        <option value="pink">Pink</option>
+        <option value="black">Black</option>
+        <option value="white">White</option>
+        <option value="green">Green</option>
+        <option value="cyan">Cyan</option>
+    </select></p>
+    <p><label for="color">Choose a body color:</label>
+
+        <select id="color" onchange="onBodyColorChange(value)">
+            <option value="orange">Orange</option>
+            <option value="pink">Pink</option>
+            <option value="black">Black</option>
+            <option value="white">White</option>
+            <option value="green">Green</option>
+            <option value="cyan">Cyan</option>
+        </select></p>
+
+        <p><label for="color">Choose a grid size:</label>
+
+            <select id="color" onchange="onBoardSizeChange(value)">
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="60">60</option>
+                <option value="70">70</option>
+            </select></p>
+
+    </div>
+    <div id="buttondiv"><button onclick="defaultButton()" id="defaultButton" class="button1">Reset to Default Settings</button>
+
+        <button onclick="startButton()" id="start" class="button1">Start</button></div>
+    </div>
     <canvas id="canvas"></canvas>
     <script src="Snake_Game.js"></script>
 </body>

@@ -1,5 +1,6 @@
-const SQUARE_DIMENSION = 20;
-const SNAKE_COLOR = "blue";
+let SQUARE_DIMENSION = 24;
+let SNAKE_COLOR = "blue";
+let headColor = "red";
 let boardColor = "grey";
 let score = 0;
 
@@ -14,8 +15,40 @@ let cellHeight = canvasElement.height / SQUARE_DIMENSION;
 
 ctx.fillStyle = "pink";
 
+function defaultButton() {
+    SQUARE_DIMENSION = 24;
+    cellWidth = canvasElement.width / SQUARE_DIMENSION;
+    cellHeight = canvasElement.height / SQUARE_DIMENSION;
+    SNAKE_COLOR = "blue";
+    headColor = "red";
+    boardColor = "grey";
+    console.log(SQUARE_DIMENSION)
+    console.log(SNAKE_COLOR)
+    console.log(headColor)
+    console.log(boardColor)
+    initializeGame()
+}
+
 function onColorChange(value) {
     boardColor = value
+    initializeGame()
+}
+
+function onHeadColorChange(value) {
+    headColor = value
+    initializeGame()
+}
+
+function onBodyColorChange(value) {
+    SNAKE_COLOR = value
+    initializeGame()
+}
+
+function onBoardSizeChange(value) {
+    SQUARE_DIMENSION = parseInt(value)
+    cellWidth = canvasElement.width / SQUARE_DIMENSION;
+    cellHeight = canvasElement.height / SQUARE_DIMENSION;
+    console.log(SQUARE_DIMENSION)
     initializeGame()
 }
 
@@ -110,10 +143,11 @@ function drawSnake(reset) {
         }
         drawFood()
         score = score + 1
+        scoreCounter();
     }
     for (let segmentIndex = 0; segmentIndex < snake.segments.length; segmentIndex++) {
         if (segmentIndex === 0) {
-            ctx.fillStyle = "red";
+            ctx.fillStyle = headColor;
         } else {
             ctx.fillStyle = SNAKE_COLOR
         }
@@ -124,9 +158,19 @@ function drawSnake(reset) {
     }
 }
 
+function scoreCounter() {
+    let newText = document.getElementById("score");
+    newText.innerHTML = "Score: " + score;
+}
+
 function updateFoodPosition() {
-    food.x = Math.floor(Math.random() * (SQUARE_DIMENSION - 2) + 1);
-    food.y = Math.floor(Math.random() * (SQUARE_DIMENSION - 2) + 1);
+    food.x = Math.floor(Math.random() * (SQUARE_DIMENSION - 3) + 1);
+    food.y = Math.floor(Math.random() * (SQUARE_DIMENSION - 3) + 1);
+}
+
+function resetScore() {
+    score = 0
+    scoreCounter()
 }
 
 function handleKeyDown(event) {
@@ -142,12 +186,19 @@ function handleKeyDown(event) {
     console.log(event)
 }
 function initializeGame() {
+    resetText()
     drawBoard();
     resetSnake()
     drawSnake(false);
     updateFoodPosition()
     drawFood()
+    resetScore()
     document.addEventListener('keydown', handleKeyDown);
+}
+
+function resetText() {
+    let newText = document.getElementById("score")
+    newText.innerHTML = "Score: "
 }
 
 initializeGame()
